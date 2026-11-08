@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#07090E">
+<meta name="robots" content="noindex">
+<title>Vorbo — demo</title>
+<meta name="description" content="Demo Vorbo: tu vorbești, Vorbo numără. Proiect de educație antreprenorială, 10C.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0F1A'/%3E%3Cpath d='M3 28C8 28 10 20 16 18' stroke='%23E8ECF5' stroke-width='3' stroke-linecap='round' opacity='.55' fill='none'/%3E%3Cpath d='M21 4Q21 12 29 12Q21 12 21 20Q21 12 13 12Q21 12 21 4Z' fill='%234ADE80'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#07090E; --surf:#11151D; --surf2:#1A1F2A; --line:#2A3140;
+  --ink:#F5F5F7; --ink2:#AEB4C0; --ink3:#6B7280;
+  --jade:#4ADE80; --jade2:#2FBF71; --jadeD:#0F3B26; --blue:#6D7CFF; --gold:#F2C94C; --coral:#FF6B5E;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden;line-height:1.45}
+.glow{position:fixed;border-radius:50%;filter:blur(60px);pointer-events:none;z-index:0;opacity:.35}
+.g1{width:340px;height:340px;background:var(--jade2);top:-120px;right:-120px}
+.g2{width:300px;height:300px;background:var(--blue);bottom:-140px;left:-140px;opacity:.22}
+.wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:0 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:20px;letter-spacing:-.02em}
+.pill{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--jade);border:1px solid var(--line);background:var(--surf2);padding:6px 10px;border-radius:999px}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--jade);text-transform:uppercase;margin:12px 0 10px}
+h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(32px,9vw,44px);line-height:1.08}
+.lead{color:var(--ink2);margin:12px 0 22px;font-size:16px}
+.app{background:linear-gradient(180deg,#0E1218,#0A0C10);border:1px solid var(--line);border-radius:28px;padding:18px 16px 16px;box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px rgba(74,222,128,.06)}
+.apptop{display:flex;justify-content:space-between;align-items:center;color:var(--ink3);font-size:12px;font-weight:600;letter-spacing:.12em}
+.avatar{display:flex;align-items:center;gap:8px;color:var(--ink2);letter-spacing:0;font-size:13px}
+.avatar b{width:30px;height:30px;border-radius:50%;background:var(--surf2);display:grid;place-items:center;color:var(--ink);font-size:12px}
+.coach{margin:14px 0 4px;color:var(--ink3);font-size:11px;font-weight:700;letter-spacing:.16em;display:flex;gap:6px;align-items:center}
+.coachtxt{font-family:var(--serif);font-size:19px;line-height:1.3;min-height:50px}
+.ringbox{position:relative;width:210px;height:210px;margin:12px auto 4px}
+.ringbox svg{width:100%;height:100%}
+.ringnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringnum b{font-family:var(--serif);font-size:54px;font-weight:400;line-height:1}
+.ringnum span{font-size:11px;letter-spacing:.16em;color:var(--ink2);font-weight:700;margin-top:6px}
+.ringnum i{font-style:normal;font-size:12px;color:var(--ink3);margin-top:16px}
+.macros{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 14px}
+.macro small{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--ink2);font-weight:700}
+.macro div{font-size:14px;margin:2px 0 6px}.macro div b{font-size:16px}.macro div span{color:var(--ink3)}
+.bar{height:4px;border-radius:4px;background:var(--surf2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;transition:width .9s cubic-bezier(.32,.72,0,1)}
+.log{display:flex;flex-direction:column;gap:10px;margin:4px 0 12px}
+.me{align-self:flex-end;max-width:85%;color:var(--ink2);font-size:14px;text-align:right}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:12px 14px;animation:in .45s cubic-bezier(.32,.72,0,1)}
+.card h4{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;color:var(--ink3);font-weight:700;margin-bottom:6px}
+.card h4 b{font-family:var(--serif);font-size:20px;color:var(--ink);letter-spacing:0;font-weight:400}
+.row{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line);font-size:14.5px}
+.row:first-of-type{border-top:0}
+.row small{display:block;color:var(--ink3);font-size:11.5px}
+.reply{font-family:var(--serif);font-size:17px;line-height:1.35;animation:in .45s cubic-bezier(.32,.72,0,1)}
+.try{border:1.5px dotted var(--jade);border-radius:14px;padding:10px 12px;margin-top:8px;font-size:14px}
+.try b{color:var(--jade)}
+.typing{display:flex;gap:4px;padding:6px 2px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--surf2);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:9px 13px;font-size:13.5px;cursor:pointer;font-family:inherit}
+.chip:active{transform:scale(.97)}
+.inrow{display:flex;gap:8px}
+.inrow input{flex:1;min-width:0;background:var(--surf2);border:1px solid var(--line);border-radius:999px;color:var(--ink);font-size:16px;padding:12px 16px;font-family:inherit;outline:none}
+.inrow input:focus{border-color:var(--jade2)}
+.mic{width:48px;height:48px;border-radius:50%;border:0;background:var(--jade2);display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+.mic.on{background:var(--coral);animation:pulse 1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,107,94,.5)}100%{box-shadow:0 0 0 14px rgba(255,107,94,0)}}
+.note{color:var(--ink3);font-size:12px;margin-top:10px;text-align:center}
+h2{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:38px 0 12px}
+.gallery{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}
+.gallery::-webkit-scrollbar{display:none}
+.shot{flex:0 0 62%;scroll-snap-align:start}
+.shot img{width:100%;border-radius:22px;border:5px solid #0A0B0E;outline:1px solid #3A404C;display:block}
+.shot p{font-size:13px;color:var(--ink2);margin-top:8px}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.price{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:14px}
+.price small{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--ink3);font-weight:700}
+.price b{display:block;font-size:19px;margin:4px 0 2px}.price span{font-size:12.5px;color:var(--ink2)}
+.price.hi{border-color:var(--jade2);background:linear-gradient(160deg,var(--jadeD),var(--surf))}
+.offer{margin-top:16px;background:var(--jade);color:#04130C;border-radius:20px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.offer b{font-size:16px;font-weight:900}.offer span{display:block;font-size:13px}
+.offer button{background:#04130C;color:var(--jade);border:0;border-radius:999px;padding:10px 14px;font-weight:800;font-family:inherit;cursor:pointer;flex:0 0 auto}
+footer{margin-top:36px;color:var(--ink3);font-size:12.5px;text-align:center;line-height:1.6}
+footer b{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M3 28C8 28 10 20 16 18" stroke="#E8ECF5" stroke-width="3" stroke-linecap="round" opacity=".55" fill="none"/><path d="M21 4Q21 12 29 12Q21 12 21 20Q21 12 13 12Q21 12 21 4Z" fill="#4ADE80"/></svg>
+      vorbo
+    </div>
+    <span class="pill">DEMO</span>
+  </header>
+
+  <div class="kicker">Proiect · Educație antreprenorială · 10C</div>
+  <h1>Tu vorbești.<br>Vorbo numără.</h1>
+  <p class="lead">Spui ce ai mâncat sau ce ai făcut la sală, iar Vorbo notează și calculează. Încearcă mai jos: apasă pe o frază sau pe microfon.</p>
+
+  <section class="app" aria-label="Demo aplicație">
+    <div class="apptop">
+      <div class="avatar"><b id="ini">AP</b><span id="uname">Andrei P.</span></div>
+      <span id="today">AZI</span>
+    </div>
+    <div class="coach"><svg width="14" height="14" viewBox="0 0 32 32"><path d="M21 4Q21 12 29 12Q21 12 21 20Q21 12 13 12Q21 12 21 4Z" fill="#AEB4C0"/></svg>ANTRENORUL</div>
+    <div class="coachtxt" id="coach"></div>
+
+    <div class="ringbox">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#4ADE80" stroke-opacity=".55" stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 10" id="dots" transform="rotate(126 100 100)"/>
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#4ADE80" stroke-width="6" stroke-linecap="round" id="arc" transform="rotate(126 100 100)" style="transition:stroke-dasharray 1s cubic-bezier(.32,.72,0,1)"/>
+      </svg>
+      <div class="ringnum"><b id="left">0</b><span>KCAL RĂMASE</span><i id="target">din 0</i></div>
+    </div>
+
+    <div class="macros">
+      <div class="macro"><small>PROTEINE</small><div><b id="pv">0</b> <span id="pt">/ 0 g</span></div><div class="bar"><i id="pb" style="background:#F5F5F7"></i></div></div>
+      <div class="macro"><small>CARBO</small><div><b id="cv">0</b> <span id="ct">/ 0 g</span></div><div class="bar"><i id="cb" style="background:#6D7CFF"></i></div></div>
+      <div class="macro"><small>GRĂSIMI</small><div><b id="fv">0</b> <span id="ft">/ 0 g</span></div><div class="bar"><i id="fb" style="background:#F2C94C"></i></div></div>
+    </div>
+
+    <div class="log" id="log" aria-live="polite"></div>
+
+    <div class="chips" id="chips"></div>
+    <form class="inrow" id="form" autocomplete="off">
+      <input id="inp" placeholder="Ce ai mâncat sau ce ai tras?" aria-label="Scrie o frază">
+      <button class="mic" id="mic" type="button" aria-label="Spune">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#04130C" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      </button>
+    </form>
+    <p class="note">Demo: frazele și cifrele sunt generate la întâmplare, nu e AI și nu se salvează nimic.</p>
+  </section>
+
+  <h2>Cum arată aplicația</h2>
+  <div class="gallery">
+    <div class="shot"><img src="img/acasa.jpg" alt="Ecranul Acasă" loading="lazy"><p><b>Acasă</b> — câte calorii și proteine mai ai azi</p></div>
+    <div class="shot"><img src="img/voce.jpg" alt="Notare cu vocea" loading="lazy"><p><b>Vocea</b> — ții apăsat și spui ce ai mâncat</p></div>
+    <div class="shot"><img src="img/chat.jpg" alt="Conversația" loading="lazy"><p><b>Antrenorul</b> — notează masa și îți face rezumatul săptămânii</p></div>
+    <div class="shot"><img src="img/sala.jpg" alt="Sala" loading="lazy"><p><b>Sala</b> — îți spune ce să încerci azi</p></div>
+    <div class="shot"><img src="img/corp.jpg" alt="Corpul" loading="lazy"><p><b>Corp</b> — greutatea ta reală și ritmul</p></div>
+  </div>
+
+  <h2>Prețuri</h2>
+  <div class="prices">
+    <div class="price"><small>GRATUIT</small><b>0 lei</b><span>notare prin voce și text, jurnal, corp</span></div>
+    <div class="price hi"><small>PREMIUM</small><b>34,99 lei/lună</b><span>+ antrenorul AI și sala completă</span></div>
+    <div class="price"><small>ANUAL</small><b>299,99 lei</b><span>cu 29% mai puțin</span></div>
+    <div class="price"><small>CARD CADOU</small><b>99,99 lei</b><span>3 luni de Premium, în cutie</span></div>
+  </div>
+  <div class="offer">
+    <div><b>7 zile Premium gratis</b><span>la lansare, cu codul LANSARE20</span></div>
+    <button id="copy" type="button">Copiază codul</button>
+  </div>
+
+  <footer>
+    <b>Vorbo</b> — proiect de educație antreprenorială, clasa a 10-a C<br>
+    Duca David · Mestecaneanu Rareș · Iacobescu Antonia · Vutan Darius · Toader Sara<br>
+    Pagină demonstrativă: fără conturi, fără date personale, fără AI.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var r=function(a,b){return Math.round(a+Math.random()*(b-a));};
+  var pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+  var names=['Andrei P.','Ioana M.','Mihai C.','Maria D.','Alex R.','Ana S.','Vlad T.','Elena B.'];
+  var nm=pick(names); document.getElementById('uname').textContent=nm;
+  document.getElementById('ini').textContent=nm.split(' ').map(function(x){return x[0];}).join('');
+  var days=['DUMINICĂ','LUNI','MARȚI','MIERCURI','JOI','VINERI','SÂMBĂTĂ'];
+  document.getElementById('today').textContent='AZI · '+days[new Date().getDay()];
+
+  var T={k:r(19,27)*100, p:r(130,175), c:r(220,290), f:r(65,85)};
+  var S={k:r(9,13)*100, p:0, c:0, f:0};
+  S.p=Math.round(T.p*(.45+Math.random()*.15)); S.c=Math.round(T.c*(.4+Math.random()*.15)); S.f=Math.round(T.f*(.4+Math.random()*.15));
+  var C=2*Math.PI*86, ARC=C*0.8;
+  var dotsEl=document.getElementById('dots');
+  var n=Math.floor(ARC/9.6), parts=[];
+  for(var k=0;k<n;k++){parts.push('0.1 9.5');}
+  parts.push('0.1 '+(C-n*9.6-0.1).toFixed(2));
+  dotsEl.setAttribute('stroke-dasharray',parts.join(' '));
+  function render(){
+    var left=Math.max(T.k-S.k,0), fr=Math.min(S.k/T.k,1);
+    document.getElementById('arc').style.strokeDasharray=(ARC*fr)+' '+C;
+    document.getElementById('left').textContent=left.toLocaleString('ro-RO');
+    document.getElementById('target').textContent='din '+T.k.toLocaleString('ro-RO');
+    [['p','pv','pt','pb'],['c','cv','ct','cb'],['f','fv','ft','fb']].forEach(function(m){
+      document.getElementById(m[1]).textContent=S[m[0]];
+      document.getElementById(m[2]).textContent='/ '+T[m[0]]+' g';
+      document.getElementById(m[3]).style.width=Math.min(S[m[0]]/T[m[0]]*100,100)+'%';
+    });
+    var pl=Math.max(T.p-S.p,0);
+    document.getElementById('coach').textContent= left>0 ? ('Mai ai '+left.toLocaleString('ro-RO')+' kcal și '+pl+' g de proteină pe azi.') : 'Ai atins ținta de azi. Bravo!';
+  }
+  render();
+
+  var log=document.getElementById('log');
+  function add(el){log.appendChild(el); el.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  function me(t){var d=document.createElement('div');d.className='me';d.textContent=t;add(d);}
+  function typing(){var d=document.createElement('div');d.className='typing';d.innerHTML='<i></i><i></i><i></i>';add(d);return d;}
+  function hour(){var h=new Date().getHours();return h<11?'MIC DEJUN':(h<16?'PRÂNZ':(h<19?'GUSTARE':'CINĂ'));}
+  function meal(title,items){
+    var tot=0,html='';
+    items.forEach(function(it){tot+=it.k;S.p+=it.p;S.c+=it.c;S.f+=it.f;
+      html+='<div class="row"><div>'+it.n+(it.s?'<small>'+it.s+'</small>':'')+'</div><div>'+it.k+'</div></div>';});
+    S.k+=tot;
+    var d=document.createElement('div');d.className='card';
+    d.innerHTML='<h4><span>'+title+'</span><span><b>'+tot+'</b> kcal</span></h4>'+html;
+    add(d);render();
+  }
+  function say(t){var d=document.createElement('div');d.className='reply';d.textContent=t;add(d);}
+
+  var phrases=[
+    {t:'am mâncat două ouă și o felie de pâine', f:function(){meal(hour(),[{n:'Ouă (2)',k:r(130,160),p:r(11,14),c:r(0,2),f:r(9,11)},{n:'Pâine',s:'o felie, cam 35 g',k:r(80,100),p:r(2,4),c:r(15,19),f:r(0,2)}]);say(pick(['Notat. Un început bun, cu proteine.','Notat micul dejun.','Gata, e în jurnal.']));}},
+    {t:'la prânz piept de pui la grătar și orez', f:function(){meal('PRÂNZ',[{n:'Piept de pui la grătar',k:r(280,360),p:r(48,62),c:0,f:r(5,9)},{n:'Orez basmati',s:'estimat · o porție gătită',k:r(200,260),p:r(4,6),c:r(45,56),f:r(0,2)}]);say('Notat prânzul.');}},
+    {t:'am mâncat sarmale cu mămăligă', f:function(){meal(hour(),[{n:'Sarmale (3)',s:'estimat · porție de casă',k:r(380,480),p:r(20,28),c:r(18,26),f:r(24,32)},{n:'Mămăligă',s:'o porție',k:r(180,240),p:r(4,6),c:r(38,50),f:r(1,3)}]);say(pick(['Notat. Gustul de acasă, numărat.','Notat. Sarmalele intră și ele la socoteală.']));}},
+    {t:'am făcut 3 serii de 10 la împins cu 40 pe o parte', f:function(){var g=40, rep=10;var d=document.createElement('div');d.className='card';
+      d.innerHTML='<h4><span>SALĂ · ÎMPINS LA PIEPT</span><span><b>'+(g*2+20)+'</b> kg</span></h4><div class="row"><div>3 serii × '+rep+'<small>40 kg pe o parte + bara de 20 kg</small></div><div>'+(3*rep*(g*2+20)).toLocaleString('ro-RO')+' kg</div></div><div class="try"><b>Data viitoare:</b> încearcă 3 serii de '+(rep+1)+'.</div>';add(d);}},
+    {t:'ce mănânc la cină?', f:function(){var left=Math.max(T.k-S.k,0),pl=Math.max(T.p-S.p,0);
+      say(left<250?'Ai cam atins ținta pe azi. Dacă ți-e foame, ia ceva ușor: un iaurt sau un fruct.':('Mai ai '+left+' kcal și '+pl+' g de proteină. '+pick(['Merge pui cu legume și o salată mare.','Merge ton cu paste integrale.','Merge o omletă cu brânză și legume.','Merge somon la cuptor cu cartofi.'])));}}
+  ];
+  var chips=document.getElementById('chips');
+  phrases.forEach(function(ph){var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=ph.t;b.onclick=function(){run(ph);};chips.appendChild(b);});
+  var busy=false;
+  function run(ph){ if(busy) return; busy=true; me(ph.t); var ty=typing(); setTimeout(function(){ty.remove();ph.f();busy=false;},900+Math.random()*600); }
+  function match(t){t=t.toLowerCase();
+    if(/ou|pâine|paine/.test(t))return phrases[0]; if(/pui|orez/.test(t))return phrases[1];
+    if(/sarm|mămăl|mamal/.test(t))return phrases[2]; if(/serii|sal|împins|impins|kg/.test(t))return phrases[3];
+    if(/cin|ce mănânc|ce mananc/.test(t))return phrases[4]; return null;}
+  document.getElementById('form').onsubmit=function(e){e.preventDefault();var i=document.getElementById('inp'),t=i.value.trim();if(!t||busy)return;i.value='';
+    var ph=match(t); if(ph){busy=true;me(t);var ty=typing();setTimeout(function(){ty.remove();ph.f();busy=false;},1000);}
+    else{me(t);var ty2=typing();busy=true;setTimeout(function(){ty2.remove();say('În demo înțeleg doar frazele de mai sus. Aplicația reală înțelege orice frază — cere-i lui David să ți-o arate pe telefon.');busy=false;},800);} };
+  var mic=document.getElementById('mic');
+  mic.onclick=function(){ if(busy) return; mic.classList.add('on'); var ph=pick(phrases); setTimeout(function(){mic.classList.remove('on');run(ph);},1300); };
+  document.getElementById('copy').onclick=function(){var b=this;try{navigator.clipboard.writeText('LANSARE20');b.textContent='Copiat!';}catch(e){b.textContent='LANSARE20';}};
+})();
+</script>
+</body>
+</html>
